@@ -24,13 +24,9 @@ and compete against other bots.
 
 ### Installation
 
-Clone this repository:
-
 ```bash
-git clone <repository-url>
-cd pokerbot
-Install required packages (if any):
 pip install -r requirements.txt
+cd pokerbot
 ```
 
 
