@@ -37,11 +37,15 @@ class PokerBot:
 
         if data["type"] == "privateState":
             gs.update(state)
-            move = self.strategy.strat_action(gs)
-            if state.get('isCurrentActor', False):
+            print(f"GAMESTATE: {gs}")
+            available_actions = gs.get('availableActions', [])
+            if len(available_actions) > 0:
+                move = self.strategy.strat_action(gs)
                 self.send_action(move["action"], move.get("amount", 0))
 
         elif data["type"] == "gameState":
+            state = data["state"]
+
             self.community_cards = state.get("communityCards", [])
             self.hole_cards = state.get("holeCards", [])
             self.pot = state.get("pot", 0)

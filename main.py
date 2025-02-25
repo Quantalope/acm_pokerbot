@@ -1,5 +1,5 @@
 from pokerbot.core import PokerBot
-from pokerbot.strategies import example_strat_3
+from pokerbot.strategies import example_strat_1
 import os
 from dotenv import load_dotenv
 
@@ -18,7 +18,7 @@ def main():
         return
 
     # Initialize the bot with the interactive command-line strategy
-    bot = PokerBot(strategy=example_strat_3, name="ARYANDAGOAT")
+    bot = PokerBot(strategy=example_strat_1, name="ARYANDAGOAT")
 
     # Run the bot and handle keyboard interrupts gracefully
     try:
