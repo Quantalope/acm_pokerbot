@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 
 
 class PokerBot:
-    def __init__(self, strategy):
+    def __init__(self, strategy, name):
         load_dotenv()
         self.strategy = strategy
         self.ws = None
         self.server_ip = os.getenv("SERVER_IP")
         self.port = os.getenv("PORT", 3002)
         self.player_id = str(uuid.uuid4())
-        self.name = "BOT 2"
+        self.name = name
         self.buy_in = 1000
         self.community_cards = []
         self.hole_cards = []
