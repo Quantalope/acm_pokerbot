@@ -1,25 +1,24 @@
 from collections import Counter
 
-'''
-
-["Royal Flush", "Straight Flush", "Four of a Kind", "Full House"]:
-["Flush", "Straight"]:
-["Three of a Kind", "Two Pair", "One Pair"]
-
-Evaluates a hand from the hole and community cards.
-'''
-
 def eval_hand(hole_cards, community_cards):
+    if not hole_cards:
+        return "High Card"  # No valid hand yet
+
     all_cards = hole_cards + community_cards
-    values = [card[:-1] for card in all_cards]  # Card values (e.g., 'A', 'K', '10')
-    suits = [card[-1] for card in all_cards]  # Card suits (e.g., 'H', 'D', 'S', 'C')
+    values = [card['_rank'] for card in all_cards]
+    suits = [card['_suit'] for card in all_cards]
 
     value_map = {
         "2": 2, "3": 3, "4": 4, "5": 5, "6": 6,
         "7": 7, "8": 8, "9": 9, "10": 10,
         "J": 11, "Q": 12, "K": 13, "A": 14
     }
-    numeric_values = sorted([value_map[v] for v in values])
+    try:
+        numeric_values = sorted([value_map[str(v)] for v in values])
+    except KeyError:
+        print("Error: Invalid card value encountered:", values)
+        return "Error"
+
     value_counter = Counter(numeric_values)
     suit_counter = Counter(suits)
 
@@ -31,8 +30,7 @@ def eval_hand(hole_cards, community_cards):
         for i in range(len(values) - 4):
             if values[i + 4] - values[i] == 4:
                 return True
-        # Special case: A-2-3-4-5 straight
-        if set([14, 2, 3, 4, 5]).issubset(values):
+        if set([14, 2, 3, 4, 5]).issubset(values):  # Special case A-2-3-4-5
             return True
         return False
 
@@ -40,15 +38,13 @@ def eval_hand(hole_cards, community_cards):
 
     # Check for Straight Flush
     if is_flush:
-        flush_suit = suit_counter.most_common(1)[0][0]
-        flush_cards = [value_map[card[:-1]] for card in all_cards if card[-1] == flush_suit]
+        flush_suit = max(suit_counter, key=suit_counter.get)
+        flush_cards = sorted([value_map[card['_rank']] for card in all_cards if card['_suit'] == flush_suit])
         if is_straight(flush_cards):
-            if max(flush_cards) == 14:
-                return "Royal Flush"
-            return "Straight Flush"
+            return "Royal Flush" if max(flush_cards) == 14 else "Straight Flush"
 
     # Check for Four of a Kind, Full House, Three of a Kind, Two Pair, One Pair
-    counts = value_counter.values()
+    counts = list(value_counter.values())
     if 4 in counts:
         return "Four of a Kind"
     if 3 in counts and 2 in counts:
@@ -59,7 +55,7 @@ def eval_hand(hole_cards, community_cards):
         return "Straight"
     if 3 in counts:
         return "Three of a Kind"
-    if list(counts).count(2) == 2:
+    if counts.count(2) == 2:
         return "Two Pair"
     if 2 in counts:
         return "One Pair"

@@ -18,7 +18,7 @@ def main():
         return
 
     # Initialize the bot with the interactive command-line strategy
-    bot = PokerBot(strategy=example_strat_3, name="ARMAN", id='0.0')
+    bot = PokerBot(strategy=example_strat_3, name="AGARWAL", id='0.1')
 
     # Run the bot and handle keyboard interrupts gracefully
     try:

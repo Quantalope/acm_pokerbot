@@ -1,6 +1,5 @@
 from pokerbot.evaluator import eval_hand
 
-
 def strat_action(game_state):
     """
     Write your strategy here. The function receives a dictionary `game_state`
@@ -9,17 +8,19 @@ def strat_action(game_state):
       - 'community_cards': List of shared cards on the table
       - 'stack_size': Your current stack size
       - 'current_bet': The current bet to call
+      - 'current_bet': The current bet to call
       - 'pot': The total amount in the pot
 
     Return a dictionary with:
       - 'action': One of 'fold', 'check', 'call', 'raise'
       - 'amount': The amount to bet/raise (if applicable)
     """
-    evaluated_hand = eval_hand(game_state['hole_cards'], game_state['community_cards'])
+    hole_cards = game_state.get('holeCards', [])
+    community_cards = game_state.get('communityCards', [])
+    evaluated_hand = eval_hand(hole_cards, community_cards)
     stack_size = game_state['stack_size']
     current_bet = game_state['current_bet']
 
-    # All-in condition for strong hands if stack is smaller than the current bet
     def go_all_in():
         return {"action": "raise", "amount": stack_size}
 

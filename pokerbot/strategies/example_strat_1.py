@@ -1,47 +1,58 @@
-from pokerbot.evaluator import eval_hand
-
-
 def strat_action(game_state):
     """
-    Takes command-line input from the user to decide the next action.
-    Evaluates the current hand and displays it for user reference.
+    A strategy function that prompts the user via command-line
+    to choose an action based on the current game state.
+    Returns a dictionary with keys 'action' and 'amount'.
     """
-    # Evaluate the hand using the hole and community cards
-    hole_cards = game_state.get('hole_cards', [])
-    community_cards = game_state.get('community_cards', [])
-    evaluated_hand = eval_hand(hole_cards, community_cards)
 
-    print("\n--- Current Game State ---")
-    print(f"Stack Size: {game_state['stack_size']}")
-    print(f"Current Bet: {game_state['current_bet']}")
-    print(f"Pot: {game_state['pot']}")
-    print(f"Hole Cards: {hole_cards}")
-    print(f"Community Cards: {community_cards}")
-    print(f"Evaluated Hand: {evaluated_hand}")
-    print("--------------------------")
+    hole_cards = game_state.get("holeCards", [])
+    community_cards = game_state.get("communityCards", [])
+    pot = game_state.get("pot", 0)
+    current_bet = game_state.get("currentBet", 0)
+    available_actions = game_state.get("availableActions", [])
+    min_raise = game_state.get("minRaise", 0)
+    max_bet = game_state.get("maxBet", 0)
+    # stack_size = game_state.get("stackSize", 0)
 
-    # Display action options
-    print("Choose an action:")
-    print("1: Fold")
-    print("2: Check")
-    print("3: Call")
-    print("4: Raise")
-    print(f"Available Actions : {game_state['availableActions']}")
+    # Print relevant information for user reference
+    # Format hole cards as rank + suit
+    formatted_hole = [f"{card['_rank']}{card['_suit']}" for card in hole_cards]
+    formatted_community = [f"{card['_rank']}{card['_suit']}" for card in community_cards]
 
-    # Get user input
+    print("\n=== Your Private Info ===")
+    if formatted_hole:
+        print(f"Your hole cards: {' '.join(formatted_hole)}")
+
+    print(f"Available actions: {', '.join(available_actions) if available_actions else 'None'}")
+    print(f"Min raise: {min_raise}")
+    print(f"Max bet: {max_bet}")
+    print("\n=== Table Info ===")
+    print(f"Community cards: {' '.join(formatted_community) if formatted_community else 'No community cards yet'}")
+    print(f"Pot: ${pot}")
+    print(f"Current bet: ${current_bet}")
+
+    # If no actions are available, just return a no-op (fold) or wait
+    if not available_actions:
+        print("No actions available; returning fold...")
+        return {"action": "fold", "amount": 0}
+
+    # Prompt user for which action to take
     while True:
-        try:
-            user_input = input("Enter the number corresponding to your action: ").strip()
-            if user_input == '1':
-                return {"action": "fold", "amount": 0}
-            elif user_input == '2':
-                return {"action": "check", "amount": 0}
-            elif user_input == '3':
-                return {"action": "call", "amount": game_state['current_bet']}
-            elif user_input == '4':
-                raise_amount = int(input("Enter raise amount: ").strip())
-                return {"action": "raise", "amount": raise_amount}
-            else:
-                print("Invalid input. Please enter a number between 1 and 4.")
-        except ValueError:
-            print("Invalid input. Please enter valid numbers for your choices.")
+        action = input("\nChoose an action (fold, check, call, bet, raise): ").strip().lower()
+
+        # Validate action
+        if action not in available_actions:
+            print(f"Invalid action. Must be one of: {available_actions}")
+            continue
+
+        # If action requires an amount, prompt for it
+        if action in ["bet", "raise"]:
+            try:
+                amount = int(input("Enter amount: ").strip())
+            except ValueError:
+                print("Invalid amount. Please enter a numeric value.")
+                continue
+            return {"action": action, "amount": amount}
+        else:
+            # For fold, check, or call (no additional input needed)
+            return {"action": action, "amount": 0}
