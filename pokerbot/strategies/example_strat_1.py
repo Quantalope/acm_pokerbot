@@ -20,14 +20,15 @@ def strat_action(game_state):
     formatted_community = [f"{card['_rank']}{card['_suit']}" for card in community_cards]
 
     print("\n=== Your Private Info ===")
-    if formatted_hole:
-        print(f"Your hole cards: {' '.join(formatted_hole)}")
+
 
     print(f"Available actions: {', '.join(available_actions) if available_actions else 'None'}")
     print(f"Min raise: {min_raise}")
     print(f"Max bet: {max_bet}")
     print("\n=== Table Info ===")
     print(f"Community cards: {' '.join(formatted_community) if formatted_community else 'No community cards yet'}")
+    if formatted_hole:
+        print(f"Your hole cards: {' '.join(formatted_hole)}")
     print(f"Pot: ${pot}")
     print(f"Current bet: ${current_bet}")
     print(f"Stack Size: ${stack_size}")
@@ -37,7 +38,6 @@ def strat_action(game_state):
         print("No actions available; returning fold...")
         return {"action": "fold", "amount": 0}
 
-    # Prompt user for which action to take
     while True:
         action = input("\nChoose an action (fold, check, call, bet, raise): ").strip().lower()
 
