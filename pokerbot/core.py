@@ -53,11 +53,11 @@ class PokerBot:
         self.current_bet = state.get("currentBet", 0)
 
 
-        print("\n=== Table Info ===")
-        print(f"Community Cards: {self.community_cards}")
-        print(f"Pot: {self.pot}")
-        print(f"Current Bet: {self.current_bet}")
-        print(f"Current Round: {state.get('currentRound', 'unknown')}\n")
+        # print("\n=== Table Info ===")
+        # print(f"Community Cards: {self.community_cards}")
+        # print(f"Pot: {self.pot}")
+        # print(f"Current Bet: {self.current_bet}")
+        # print(f"Current Round: {state.get('currentRound', 'unknown')}\n")
 
         # Print players (if you like)
         players = state.get("players", [])
@@ -76,9 +76,9 @@ class PokerBot:
         hole_cards = state.get("holeCards", [])
         available_actions = state.get("availableActions", [])
 
-        print("\n=== Your Private Info ===")
-        print(f"Hole Cards: {hole_cards}")
-        print(f"Available Actions: {available_actions}")
+        # print("\n=== Your Private Info ===")
+        # print(f"Hole Cards: {hole_cards}")
+        # print(f"Available Actions: {available_actions}")
 
         if not available_actions:
             print("No actions available; waiting for other players...")
@@ -95,7 +95,7 @@ class PokerBot:
             "minRaise": state.get("minRaise", 0),
             "maxBet": state.get("maxBet", 0),
         }
-        print(f"GAMESTATE: {game_state}\n\n")
+        # print(f"GAMESTATE: {game_state}\n\n")
         move = self.strategy.strat_action(game_state)
         action = move.get("action", "fold")
         amount = move.get("amount", 0)
