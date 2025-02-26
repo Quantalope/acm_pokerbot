@@ -14,6 +14,8 @@ def strat_action(game_state):
     Return a dictionary with:
       - 'action': One of 'fold', 'check', 'call', 'raise'
       - 'amount': The amount to bet/raise (if applicable)
+
+    The current implementation goes all in if the hand is a Royal Flush, Straight Flush, or Four of a Kind
     """
     hole_cards = game_state.get('holeCards', [])
     community_cards = game_state.get('communityCards', [])
