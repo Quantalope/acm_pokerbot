@@ -12,7 +12,7 @@ def strat_action(game_state):
     available_actions = game_state.get("availableActions", [])
     min_raise = game_state.get("minRaise", 0)
     max_bet = game_state.get("maxBet", 0)
-    # stack_size = game_state.get("stackSize", 0)
+    stack_size = game_state.get("stackSize", 0)
 
     # Print relevant information for user reference
     # Format hole cards as rank + suit
@@ -30,6 +30,7 @@ def strat_action(game_state):
     print(f"Community cards: {' '.join(formatted_community) if formatted_community else 'No community cards yet'}")
     print(f"Pot: ${pot}")
     print(f"Current bet: ${current_bet}")
+    print(f"Stack Size: ${stack_size}")
 
     # If no actions are available, just return a no-op (fold) or wait
     if not available_actions:

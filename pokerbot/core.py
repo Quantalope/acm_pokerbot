@@ -26,7 +26,6 @@ class PokerBot:
         self.community_cards = []
         self.pot = 0
         self.current_bet = 0
-        self.stackSize = 0
 
     def on_message(self, ws, message):
         """Handles incoming messages from the WebSocket server."""
@@ -91,7 +90,7 @@ class PokerBot:
             "holeCards": hole_cards,
             "communityCards": self.community_cards,
             "pot": self.pot,
-            "stackSize": self.stackSize,
+            "stackSize": state.get("stackSize", 0),
             "currentBet": self.current_bet,
             "availableActions": available_actions,
             "minRaise": state.get("minRaise", 0),

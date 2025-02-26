@@ -18,7 +18,6 @@ HAND_STRENGTH = {
     "Royal Flush":      10
 }
 
-
 def strat_action(game_state):
     """
     A strategy function that uses the eval_hand function to evaluate the hole +
