@@ -39,7 +39,7 @@ def strat_action(game_state):
 
     # Prompt user for which action to take
     while True:
-        action = input("\nChoose an action (fold, check, call, bet, raise): ").strip().lower()
+        action = input(f"\nChoose an action {available_actions}): ").strip().lower()
 
         # Validate action
         if action not in available_actions:
