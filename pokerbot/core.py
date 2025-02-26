@@ -30,7 +30,6 @@ class PokerBot:
     def on_message(self, ws, message):
         """Handles incoming messages from the WebSocket server."""
         data = json.loads(message)
-        print(f"DATA Received: {data}\n")
 
         msg_type = data.get("type", "")
 
