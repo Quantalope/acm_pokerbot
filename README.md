@@ -1,48 +1,8 @@
 # PokerBot
 
-## 🚀 Getting Started
-
-## 🏆 How the Tournament Will Proceed (IMPORTANT)
-
-1. For the first hour, we will be building bots in teams of 2 or 3. (Find instructions below.)
-2. In the second hour, you will run your bot and compete with other bots. By this point, make sure your team is registered
-    and has a unique ID for your seat at the table. 
-
-## The tournament will proceed in a knockout format
-
-### 1️⃣ 1st Round
-In Blocks of 4 minutes (3 tables total)
-
-1st Block: 9/9/9 bots
-
-2nd Block: 8/8/8 bots
-
-...
-
-6th Block 3/3/3 bots
-
-First 24 minutes: bots will be evenly divided into 3 tables. The bot with the lowest stack will be kicked out every 4 minutes.
-  In total, 6 bots will be kicked in this round. The top 3 will then proceed to the next round.
-
-### 2️⃣ 2nd Round
-In Blocks of 4 minutes (1 table total)
-
-1st Block: 9 bots
-
-2nd Block: 8 bots
-
-9th Block: 1 bot remaining 
-
-Next 25 minutes: the top 3 bots from all 3 tables will compete on a single table against each other.
-    The bot with the lowest stack will be kicked out every 4 minutes. The top bot remaining will win!
-
-### ❗️ At any point if a bot takes more than 10 seconds to make a move, they will be kicked out.
-
-Prizes TBA!
-
 ## 🤖 How to Build Your Own Strategy
 
-1. Clone the Poker Table system here and set it up (instructions provided on that repo).
+1. Clone the [Poker Table system](https://github.com/SpaceRage/node-poker-app) here and set it up (instructions provided on that repo).
 2. Clone this repository.
 
 ### Installation
